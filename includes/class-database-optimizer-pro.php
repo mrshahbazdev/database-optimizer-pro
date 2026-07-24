@@ -84,6 +84,10 @@ class Database_Optimizer_Pro {
 			'interval' => DAY_IN_SECONDS,
 			'display'  => __( 'Once Daily', 'database-optimizer-pro' ),
 		);
+		$schedules['dop_weekly'] = array(
+			'interval' => 7 * DAY_IN_SECONDS,
+			'display'  => __( 'Once Weekly', 'database-optimizer-pro' ),
+		);
 		return $schedules;
 	}
 
@@ -138,9 +142,9 @@ class Database_Optimizer_Pro {
 	public static function reschedule( $schedule ) {
 		wp_clear_scheduled_hook( self::CRON_HOOK );
 		if ( 'daily' === $schedule ) {
-			wp_schedule_event( time(), 'daily', self::CRON_HOOK );
+			wp_schedule_event( time(), 'dop_daily', self::CRON_HOOK );
 		} elseif ( 'weekly' === $schedule ) {
-			wp_schedule_event( time(), 'weekly', self::CRON_HOOK );
+			wp_schedule_event( time(), 'dop_weekly', self::CRON_HOOK );
 		}
 	}
 
